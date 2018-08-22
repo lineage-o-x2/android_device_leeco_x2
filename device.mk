@@ -35,8 +35,9 @@ TARGET_SCREEN_HEIGHT := 2560
 TARGET_SCREEN_WIDTH := 1440
 
 # Ramdisk
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/leeco/x2/rootdir/root,root)
+PRODUCT_PACKAGES += \
+    qfp_boot.sh \
+    init.target.rc
 
 # Audio configuration files
 PRODUCT_COPY_FILES += \
