@@ -26,9 +26,16 @@ function blob_fixup() {
 		sed -i "s|/firmware/image|/vendor/f/image|g" "${2}"
 		;;
 
-	# Hex edit /firmware/image to /vendor/firmware_mnt to delete the outdated rootdir symlinks
 	vendor/lib64/libqfp-service.so)
+		# Hex edit /firmware/image to /vendor/firmware_mnt to delete the outdated rootdir symlinks
 		sed -i "s|/firmware/image|/vendor/f/image|g" "${2}"
+		# Patch blobs for VNDK
+		patchelf --remove-needed "libandroid_runtime.so" "${2}"
+		;;
+
+	# Patch blobs for VNDK
+	vendor/lib64/qfp.wakeup.so | vendor/lib64/hw/fingerprint.qcom.so)
+		patchelf --remove-needed "libandroid_runtime.so" "${2}"
 	esac
 }
 
